@@ -1,0 +1,5 @@
+FROM nginx:1.10
+
+ADD ./docker/nginx/common.conf /etc/nginx/conf.d/common.conf
+
+WORKDIR /var/www
