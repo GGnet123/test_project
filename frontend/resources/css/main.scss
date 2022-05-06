@@ -1,0 +1,10 @@
+@import "support_chat.scss";
+
+.main {
+  text-align: center;
+  padding: 50px;
+  &__box {
+    border: 1px solid black;
+    text-align: center;
+  }
+}

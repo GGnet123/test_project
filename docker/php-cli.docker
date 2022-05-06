@@ -1,0 +1,35 @@
+FROM php:7.4-cli
+
+WORKDIR /var/www
+
+RUN apt-get update && apt-get install -y libmcrypt-dev libmagickwand-dev zip unzip libpq-dev libicu-dev libmemcached-dev zlib1g-dev wkhtmltopdf
+
+RUN pecl install imagick && docker-php-ext-enable imagick
+
+RUN apt-get install -y \
+        libzip-dev \
+        zip \
+  && docker-php-ext-install zip
+
+RUN apt-get install -y libonig-dev libpq-dev
+
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo_pgsql pgsql pdo pdo_mysql \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-install exif \
+    && docker-php-ext-install intl \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install bcmath \
+    && docker-php-ext-install sockets \
+    && docker-php-ext-install pcntl \
+    && docker-php-ext-configure pcntl --enable-pcntl
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+        --filename=composer \
+        --install-dir=/usr/local/bin && \
+        echo "alias composer='composer'" >> /root/.bashrc && \
+        composer
+
+EXPOSE 6001
+EXPOSE 2206

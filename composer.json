@@ -1,0 +1,7 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "workerman/workerman": "^4.0",
+        "workerman/channel": "^1.1"
+    }
+}
