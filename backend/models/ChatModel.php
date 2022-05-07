@@ -16,7 +16,7 @@ class ChatModel
         $id = pg_fetch_assoc(pg_query($this->db, "insert into chats(is_active) values(true) returning id"))['id'];
         pg_query_params($this->db,
         "insert into chat_messages(chat_id, message, is_from_support, is_read) 
-                values($1, $2, $3)", [$id, 'Здравствуйте, чем можем вам помочь ?', true, true]
+                values($1, $2, $3, $4)", [$id, 'Здравствуйте, чем можем вам помочь ?', true, true]
         );
         return $id;
     }

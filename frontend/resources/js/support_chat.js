@@ -2,6 +2,7 @@ let ws = new WebSocket('ws://127.0.0.1:6001');
 
 $('.chat-box').hide()
 $('.typing').hide();
+
 $('.chat-icon__img').click(function () {
     $('.chat-box').show()
 
@@ -14,15 +15,14 @@ $('.button').click(function(){
 
 function loadMessages() {
     let sessionId = localStorage.getItem('sessionId')
-
     if (!sessionId) {
         getNewSessionId().then(function (id) {
             sessionId = id;
-            setChat(sessionId);
+            return setChat(sessionId);
         })
     }
 
-    setChat(sessionId)
+    return setChat(sessionId);
 }
 
 function setChat(sessionId) {
@@ -49,8 +49,11 @@ function getChatById(id) {
         url : "http://127.0.0.1:8099/backend/getChatMessages?id=" + id,
         type: "GET",
         success: function(data, textStatus, jqXHR)
-        {}
-    })
+        {},
+        error: function (data, textStatus, jqXHR) {
+            console.log(data, textStatus, jqXHR);
+        }
+    });
 }
 
 function getNewSessionId() {
@@ -94,7 +97,7 @@ $('.message-submit').click(function() {
     let msg = $('.message-input').val();
     insertMessage(true, msg);
     sendMessage(msg);
-
+    $('.message-input').val(null);
     ws.send(JSON.stringify({event: 'message', chatId: localStorage.getItem('sessionId'), message: msg, is_from_support: false}));
 });
 
@@ -109,7 +112,6 @@ function sendMessage(msg) {
         },
         success: function () {
             setDate(new Date());
-            $('.message-input').val(null);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log('in error', jqXHR, textStatus, errorThrown);
