@@ -7,9 +7,11 @@ ws.addEventListener('message', (event) => {
     let chatId = $('.messages__detail').attr('data-id');
 
     if (data.event === "message" && data.is_from_support === false) {
-        $('.chats__item[data-id="' + data.chatId + '"]').find('.new_message').show();
         if (chatId == data.chatId) {
-            insertMessage(true, data.message);
+            insertMessage(data.is_from_support, data.message);
+            ws.send(JSON.stringify({event: 'read', chatId: chatId, is_read: true}));
+        } else {
+            $('.chats__item[data-id="' + data.chatId + '"]').find('.new_message').show();
         }
         playRingtone();
     }
@@ -92,9 +94,9 @@ function getChatMessages(id) {
             ws.send(JSON.stringify({event: 'read', chatId: id, is_read: true}));
 
             $('.messages__placeholder_btn').click(function () {
-                let msg = $('.messages__placeholder_input').val()
-                sendMessage(id, msg)
-                insertMessage(true, msg)
+                let msg = $('.messages__placeholder_input').val();
+                sendMessage(id, msg);
+                insertMessage(true, msg);
                 ws.send(JSON.stringify({event: 'message', chatId: id, message: msg, is_from_support: true}));
             });
 
@@ -144,7 +146,7 @@ function insertMessage(personal = false, msg = '') {
 
     let croppedMessage = cropMessage(msg)
 
-    $('.messages__chat').append('<div class="messages__chat_' + (personal ? 'left"' : 'right"') + '>' +
+    $('.messages__chat').append('<div class="messages__chat_' + (personal ? 'left' : 'right') + '">' +
         '<div class="text">' + croppedMessage + '</div>' +
         '</div>')
 
