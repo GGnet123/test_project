@@ -14,6 +14,7 @@ $('.button').click(function(){
 });
 
 function loadMessages() {
+    $('.messages-content').empty();
     let sessionId = localStorage.getItem('sessionId')
     if (!sessionId) {
         getNewSessionId().then(function (id) {
