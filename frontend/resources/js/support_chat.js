@@ -1,4 +1,4 @@
-let ws = new WebSocket('ws://127.0.0.1:6001');
+let ws = new WebSocket('ws://3bf9-5-76-123-42.ngrok.io');
 
 $('.chat-box').hide()
 $('.typing').hide();
@@ -47,7 +47,7 @@ function setChat(sessionId) {
 
 function getChatById(id) {
     return $.ajax({
-        url : "http://127.0.0.1:8099/backend/getChatMessages?id=" + id,
+        url : "http://b6e4-5-76-123-42.ngrok.io/backend/getChatMessages?id=" + id,
         type: "GET",
         success: function(data, textStatus, jqXHR)
         {},
@@ -59,7 +59,7 @@ function getChatById(id) {
 
 function getNewSessionId() {
     return $.ajax({
-        url : "http://127.0.0.1:8099/backend/createNewChat",
+        url : "http://b6e4-5-76-123-42.ngrok.io/backend/createNewChat",
         type: "POST",
         success: function(data, textStatus, jqXHR)
         {
@@ -104,7 +104,7 @@ $('.message-submit').click(function() {
 
 function sendMessage(msg) {
     return $.ajax({
-        url : "http://127.0.0.1:8099/backend/addMessage",
+        url : "http://b6e4-5-76-123-42.ngrok.io/backend/addMessage",
         type: "POST",
         data: {
             "id": localStorage.getItem('sessionId'),
@@ -122,7 +122,7 @@ function sendMessage(msg) {
 
 function setAllRead(id) {
     $.ajax({
-        url : "http://127.0.0.1:8099/backend/readChat",
+        url : "http://b6e4-5-76-123-42.ngrok.io/backend/readChat",
         type: "POST",
         data: {
             "id": id,
