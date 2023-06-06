@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/less@4"></script>
     <meta charset="UTF-8">
-    <title>Chat Box</title>
+    <title>Chat Box Test</title>
 </head>
 <body>
 <?php include "modules/body.php" ?>

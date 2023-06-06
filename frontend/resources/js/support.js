@@ -1,4 +1,4 @@
-let ws = new WebSocket('ws://127.0.0.1:6001');
+let ws = new WebSocket('ws://3bf9-5-76-123-42.ngrok.io');
 
 ws.addEventListener('message', (event) => {
     console.log(event.data);
@@ -36,7 +36,7 @@ $(document).ready(function () {
 
 function sendMessage(id, msg) {
     return $.ajax({
-        url : "http://127.0.0.1:8099/backend/addMessage",
+        url : "http://b6e4-5-76-123-42.ngrok.io/backend/addMessage",
         type: "POST",
         data: {
             "id": id,
@@ -54,7 +54,7 @@ function sendMessage(id, msg) {
 
 function getActiveChats() {
     return $.ajax({
-        url : "http://127.0.0.1:8099/backend/getChats",
+        url : "http://b6e4-5-76-123-42.ngrok.io/backend/getChats",
         type: "GET",
         success: function (data) {
             console.log('fetched chats');
@@ -64,7 +64,7 @@ function getActiveChats() {
 
 function getChatMessages(id) {
     $.ajax({
-        url : "http://127.0.0.1:8099/backend/getChatMessages?id=" + id,
+        url : "http://b6e4-5-76-123-42.ngrok.io/backend/getChatMessages?id=" + id,
         type: "GET",
         success: function (data) {
             $('.messages').empty();
